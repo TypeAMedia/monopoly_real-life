@@ -252,21 +252,88 @@ class App {
 		})
 	}
 
+	cardColor = ['#7C212A', '#039DF5', '#F51D72', '#FB7F4C', '#FC4243', '#FC4243', '#01AD5B', '#2C15A4']
+
+	generateCardColor(color, index,) {
+
+
+	}
+
 	showCard(streets) {
+		d3.select('.streets-wrap').style('display', 'block')
+		d3.select('#map').style('display', 'none')
+		d3.select('.btn-zooms').style('display', 'none')
 		d3.select('#streetsWrap').html('');
 
-		streets.forEach((street) => {
-			d3.select('#streetsWrap').append('div')
-				.attr('class', 'streets-box')
-				.html(`<div class="each-street">
-					<div class='title-deed'>
+		d3.select('#streetsWrap')
+			.selectAll('streets-box')
+			.data(streets)
+			.enter()
+			.append('div')
+			.html((street, index) => `<div class="each-street">
+					<div class='title-deed' style='backgroundColor:'>
 						<div class="title"> TITLE DEED</div>
 						<div class="street">${street.Location}</div>
 					</div>
-				</div>`);
-		});
-	}
+				</div>`)
+			.on('click', function (e, street) {
+				d3.select('#infoCard').html('')
+				const infoCard = d3.select('#infoCard')
+					.style('display', 'block')
 
+				d3.select('.info-card-background').style('display', 'block')
+
+				infoCard.append('div')
+					.attr('class', 'close-button')
+					.html(` <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect x="1" y="1" width="38" height="38" rx="3" fill="white" stroke="#101921" stroke-width="2"
+						stroke-dasharray="3 3" />
+					<path
+						d="M28.0451 13.0851L26.9151 11.9551L20.0002 18.87L13.0854 11.9551L11.9554 13.0851L18.8703 19.9999L11.9554 26.9148L13.0854 28.0448L20.0002 21.1299L26.9151 28.0448L28.0451 26.9148L21.1302 19.9999L28.0451 13.0851Z"
+						fill="#101921" />
+				</svg>`).on('click', function () {
+						infoCard.style('display', 'none')
+						d3.select('.info-card-background').style('display', 'none')
+					})
+
+				infoCard
+					.append('div')
+					.attr('class', 'info-box')
+					.html(`<div class="info-box-street">
+					<div class="info-each-street">
+						<div class='info-title-deed'>
+							<div class="title-text-info"> TITLE DEED</div>
+							<div class="info-street">${street.Location}</div>
+						</div>
+						<div class="rank-data">
+							<div class="each-rank">
+								<div class="monopoly-price" id="monopolyPrice"> Monopoly Price</div>
+								<div>${street['Monopoly Price']}</div>
+							</div>
+							<div class="each-rank">
+								<div class="daily-parking" id="dailyParking">Avg. Daily Parking Price</div>
+								<div>${street['Avg. Price of Property']}</div>
+							</div>
+							<div class="each-rank">
+								<div class="school-rting" id="schoolRating">Avg. School Rating</div>
+								<div>Good</div>
+							</div>
+							<div class="each-rank">
+								<div class="doctors-practices" id="doctorsPractices">Doctors Practices</div>
+								<div>6</div>
+							</div>
+
+							<div class='info-border'> </div>
+
+							<div class="each-rank">
+								<div class="houses-cost" id="housesCost">Houses cost</div>
+								<div>${street['Avg. Price of Property']}</div>
+							</div>
+						</div>
+					</div>
+				</div>`)
+			})
+	}
 
 }
 
