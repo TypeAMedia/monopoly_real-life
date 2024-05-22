@@ -18,51 +18,39 @@ class App {
 
 	async loadDataAndInit() {
 		try {
-			const [mapjson, data] = await Promise.all([
+			const [mapjson, data, datum] = await Promise.all([
 				d3.json('./data/uk-outline-topo.json'),
 				d3.csv('./data/football-data.csv', d3.autoType),
+				d3.csv('./data/Monopoly-data.csv', d3.autoType)
 			])
 
 			this.data = data
 
-			const sortObj = [
-				"Premier League",
-				"Championship",
-				"League One",
-				"League Two"
-			]
-			const list = data.map((d) => {
+
+			const uniqueData = Array.from(new Set(datum.map((d) => d.City)))
+				.map(city => {
+					return datum.find(obj => obj.City === city);
+				})
+
+			const uniqueCities = uniqueData.map((d) => {
 				return {
-					label: d.Team,
-					value: d.Team
+					label: d.City,
+					value: d.City,
+					Coord: d.Coord,
 				}
-
 			})
-			console.log(list)
-			const listOptions = d3.rollups(
-				data,
-				arr => arr
-					.sort((a, b) => {
-						return d3.ascending(a.Team, b.Team)
-					})
-					.map(d => ({
-						label: d.Team,
-						value: d.Team,
-					})),
-				d => d.League
-			).map((d, i) => ({
-				label: d[0],
-				id: i + 1,
-				choices: d[1]
-			})).sort((a, b) => sortObj.indexOf(a.label) - sortObj.indexOf(b.label))
 
+
+			console.log(uniqueCities)
 			this.choice = initDropdown({
 				// searchPlaceholderValue: 'Search',
 				placeholder: 'FIND YOUR CITY',
-				list: list,
+				list: uniqueCities,
 				id: '#city_select',
-				cb: team => {
-					this.map.highlightPin(x => x.Team === team)
+				cb: (city) => {
+					const streets = datum.filter((d) => d.City === city)
+					this.showCard(streets)
+					this.map.highlightPin(x => x.City === city)
 				},
 				searchEnabled: false,
 			})
@@ -70,10 +58,10 @@ class App {
 			this.map = new MercatorMap({
 				container: '#map',
 				basemap: mapjson,
-				data: this.data,
+				data: this.uniqueCities,
 				zoomExtent: this.zoomExtent,
-				layer: data.map((d, i) => {
-					const [Latitude, Longitude] = d.Coord.split(';').map(d => +d.trim())
+				layer: uniqueCities.map((d, i) => {
+					const [Latitude, Longitude] = d.Coord.split(',').map(d => +d.trim())
 					return {
 						...d,
 						rank: d['Rank for beginners'],
@@ -81,111 +69,83 @@ class App {
 						Longitude,
 					}
 				}),
-				getTooltipHtml: d => {
-					return `
-					<div class="tooltip-div">
-						<h3 class="tooltip-title">${d.Team}</h3>
-						<div>
 
-						<div class='FC-rank'> <span class='FC-rank'> Rank </span>  <span class='overall-ranking'>${ordinal_suffix_of(d.Rank)} </span> </div>
+				// getTooltipHtml: d => {
+				// 	return `
+				// 	<div class="tooltip-div">
+				// 		<h3 class="tooltip-title">${d.Team}</h3>
+				// 		<div>
 
-							<table class="table table-sm">
-								<thead>
-									<tr>
-										<th>Away Game</th>
-										<th class="font-normal text-grey">Total</th>
-										<th class="font-normal text-grey">Rank</th>
-									</tr>
-								</thead>
-								<tbody>
-									${Object.values(config)
-							.sort((a, b) => a.order - b.order)
-							.filter(d => d.tableText !== 'OVERALL').filter(d => d.fieldTeam === 'Travel distance' || d.fieldTeam === 'Fuel cost')
-							.map(conf => {
-								return `
-												<tr>
-													<td>
-														<div class="d-flex align-items-center">
-															<div class="icon">${conf.icon}</div>
-															<div class="field-Team">${conf.fieldTeam}</div>
-														</div>
-													</td>
-													<td class="col-2">
-														${conf.format ? conf.format(d[conf.fieldTeam] || '') : d[conf.fieldTeam] || ''}
-													</td>
-													<td class="col-3">
-														${ordinal_suffix_of(d[conf.rankField])}
-													</td>
-												</tr>
-											`
-							}).join('')}
+				// 		<div class='FC-rank'> <span class='FC-rank'> Rank </span>  <span class='overall-ranking'>${ordinal_suffix_of(d.Rank)} </span> </div>
 
-							<tr>
-								<td colSpan="3">
-                   Home Game
-								</td>
-							</tr>
+				// 			<table class="table table-sm">
+				// 				<thead>
+				// 					<tr>
+				// 						<th>Away Game</th>
+				// 						<th class="font-normal text-grey">Total</th>
+				// 						<th class="font-normal text-grey">Rank</th>
+				// 					</tr>
+				// 				</thead>
+				// 				<tbody>
+				// 					${Object.values(config)
+				// 			.sort((a, b) => a.order - b.order)
+				// 			.filter(d => d.tableText !== 'OVERALL').filter(d => d.fieldTeam === 'Travel distance' || d.fieldTeam === 'Fuel cost')
+				// 			.map(conf => {
+				// 				return `
+				// 								<tr>
+				// 									<td>
+				// 										<div class="d-flex align-items-center">
+				// 											<div class="icon">${conf.icon}</div>
+				// 											<div class="field-Team">${conf.fieldTeam}</div>
+				// 										</div>
+				// 									</td>
+				// 									<td class="col-2">
+				// 										${conf.format ? conf.format(d[conf.fieldTeam] || '') : d[conf.fieldTeam] || ''}
+				// 									</td>
+				// 									<td class="col-3">
+				// 										${ordinal_suffix_of(d[conf.rankField])}
+				// 									</td>
+				// 								</tr>
+				// 							`
+				// 			}).join('')}
 
-							${Object.values(config)
-							.sort((a, b) => a.order - b.order)
-							.filter(d => d.tableText !== 'OVERALL').filter(d => d.fieldTeam === 'Parking costs' || d.fieldTeam === 'Parking spaces')
-							.map(conf => {
-								return `
-													<tr>
-														<td>
-															<div class="d-flex align-items-center">
-																<div class="icon">${conf.icon}</div>
-																<div class="field-Team">${conf.fieldTeam}</div>
-															</div>
-														</td>
-														<td class="col-2">
-															${conf.format ? conf.format(d[conf.fieldTeam] || '') : d[conf.fieldTeam] || ''}
-														</td>
-														<td class="col-3">
-															${ordinal_suffix_of(d[conf.rankField])}
-														</td>
-													</tr>
-						
-												`
-							}).join('')}
-								</tbody>
-						</table>
-						</div>
-					</div>`
-				},
-				beforeRender: container => {
-					const isMobile = window.innerWidth < 576
-					const g = container
-						.patternify({
-							tag: 'g',
-							selector: 'backgrounds',
-						})
-						.attr(
-							'transform',
-							`translate(${isMobile ? 35 : 80}, ${isMobile ? -30 : 0})`
-						)
+				// 			<tr>
+				// 				<td colSpan="3">
+				//            Home Game
+				// 				</td>
+				// 			</tr>
 
-					g.patternify({
-						tag: 'g',
-						selector: 'img',
-						// data: [
-						// 	'./images/desktop-map-background.svg',
-						// 	'./images/mobile-map-background.svg',
-						// ],
-					})
-						.classed('d-mobile', d => {
-							return d.includes('mobile')
-						})
-						.classed('d-desktop', d => {
-							return d.includes('desktop')
-						})
-						.each(function (d) {
-							loadSvg(d).then(res => d3.select(this).html(res))
-						})
-				},
+				// 			${Object.values(config)
+				// 			.sort((a, b) => a.order - b.order)
+				// 			.filter(d => d.tableText !== 'OVERALL').filter(d => d.fieldTeam === 'Parking costs' || d.fieldTeam === 'Parking spaces')
+				// 			.map(conf => {
+				// 				return `
+				// 									<tr>
+				// 										<td>
+				// 											<div class="d-flex align-items-center">
+				// 												<div class="icon">${conf.icon}</div>
+				// 												<div class="field-Team">${conf.fieldTeam}</div>
+				// 											</div>
+				// 										</td>
+				// 										<td class="col-2">
+				// 											${conf.format ? conf.format(d[conf.fieldTeam] || '') : d[conf.fieldTeam] || ''}
+				// 										</td>
+				// 										<td class="col-3">
+				// 											${ordinal_suffix_of(d[conf.rankField])}
+				// 										</td>
+				// 									</tr>
+
+				// 								`
+				// 			}).join('')}
+				// 				</tbody>
+				// 		</table>
+				// 		</div>
+				// 	</div>`
+				// },
+
 				onPinClick: d => {
-					this.choice.setChoiceByValue(d.Team)
-					this.map.highlightPin(x => x.Team === d.Team)
+					this.choice.setChoiceByValue(d.City)
+					this.map.highlightPin(x => x.City === d.City)
 				},
 			})
 
@@ -226,7 +186,6 @@ class App {
 				this.zoomExtent[0],
 				this.currentScale - this.zoomStep
 			)
-
 			this.map && this.map.scale(this.currentScale)
 			this.updateZoomBtns()
 		})
@@ -292,6 +251,23 @@ class App {
 			fill(config[target])
 		})
 	}
+
+	showCard(streets) {
+		d3.select('#streetsWrap').html('');
+
+		streets.forEach((street) => {
+			d3.select('#streetsWrap').append('div')
+				.attr('class', 'streets-box')
+				.html(`<div class="each-street">
+					<div class='title-deed'>
+						<div class="title"> TITLE DEED</div>
+						<div class="street">${street.Location}</div>
+					</div>
+				</div>`);
+		});
+	}
+
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {
