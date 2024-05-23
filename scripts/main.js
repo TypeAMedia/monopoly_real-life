@@ -158,7 +158,9 @@ class App {
 		d3.select('#streetsWrap').html('');
 		d3.select('.heading-box-mobile').style('display', 'none')
 		d3.select('.streets-wrap').style('height', '100vh')
-
+		if (globals.isMobile) {
+			d3.select('.sidebar').style('position', 'absolute').style('left', 0).style('top', 0).style('z-index', 1000)
+		}
 		d3.select('#streetsWrap')
 			.append('div')
 			.attr('class', 'streets-main-box')
@@ -169,7 +171,7 @@ class App {
 			.attr('class', 'streets-box')
 			.html((street, index) => `<div class="each-street">
 			<div class="title-deed" style='background-color: ${this.generateCardColor(index)}; color: ${this.generateCardColor(index) === '#FBF22D' ? 'black' : 'white'}'>
-			<div class="title-"> TITLE DEED</div>
+			<div class="title"> TITLE DEED</div>
 						<div class="street">${street.Location}</div>
 					</div>
 				</div>`)
