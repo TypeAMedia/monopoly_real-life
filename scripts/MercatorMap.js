@@ -7,7 +7,7 @@ class MercatorMap {
 				width: 400,
 				height: 400,
 				margin: {
-					top: 0,
+					top: globals.isMobile ? -40 : 0,
 					left: 0,
 					bottom: globals.isMobile ? 100 : 30,
 					right: globals.isMobile ? 100 : 60,
@@ -177,7 +177,7 @@ class MercatorMap {
 			color: '#2C15A4',
 			textColor: '#fff',
 			width: 120,
-			x: 50,
+			x: globals.isMobile ? 30 : 50,
 			y: -40
 		},
 		{
@@ -185,7 +185,7 @@ class MercatorMap {
 			color: '#FBF22D',
 			textColor: '#000',
 			width: 130,
-			x: 50,
+			x: 30,
 			y: globals.isMobile ? -30 : -35
 		},
 		{
@@ -371,7 +371,7 @@ class MercatorMap {
 			this.attrs.width = containerRect.width
 		}
 
-		this.attrs.height = this.attrs.width < 576 ? window.innerHeight - 250 : 745
+		this.attrs.height = this.attrs.width < 576 ? window.innerHeight - 50 : 745
 
 		this.chartWidth =
 			this.attrs.width - this.attrs.margin.right - this.attrs.margin.left
