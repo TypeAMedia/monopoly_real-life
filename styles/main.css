@@ -101,7 +101,7 @@ body {
 .title {
   text-align: center;
   padding: 0 20%;
-  margin-top: 0px;
+  margin-top: 10px;
   margin-bottom: 24px;
   font-family: 'Soleil-regular'
 }
@@ -177,6 +177,8 @@ body {
   padding-bottom: 20px;
   cursor: pointer;
 }
+
+
 
 .red {
   background-color: #7C212A;

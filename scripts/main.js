@@ -169,7 +169,7 @@ class App {
 			.attr('class', 'streets-box')
 			.html((street, index) => `<div class="each-street">
 			<div class="title-deed" style='background-color: ${this.generateCardColor(index)}; color: ${this.generateCardColor(index) === '#FBF22D' ? 'black' : 'white'}'>
-			<div class="title"> TITLE DEED</div>
+			<div class="title-"> TITLE DEED</div>
 						<div class="street">${street.Location}</div>
 					</div>
 				</div>`)

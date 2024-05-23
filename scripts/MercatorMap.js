@@ -7,7 +7,7 @@ class MercatorMap {
 				width: 400,
 				height: 400,
 				margin: {
-					top: globals.isMobile ? -40 : 0,
+					top: globals.isMobile ? -60 : 0,
 					left: 0,
 					bottom: globals.isMobile ? 100 : 30,
 					right: globals.isMobile ? 100 : 60,
@@ -144,23 +144,23 @@ class MercatorMap {
 			label: 'Newcastle',
 			color: '#FC4243',
 			textColor: '#fff',
-			width: 120,
+			width: globals.isMobile ? 100 : 120,
 			x: -60,
-			y: -95
+			y: globals.isMobile ? -90 : -95
 		},
 		{
 			label: 'Liverpool',
 			color: '#7C212A',
 			textColor: '#fff',
-			width: 120,
-			x: -160,
+			width: globals.isMobile ? 100 : 120,
+			x: globals.isMobile ? -140 : -160,
 			y: -40
 		},
 		{
 			label: 'Manchester',
 			color: '#01AD5B',
 			textColor: '#fff',
-			width: 130,
+			width: globals.isMobile ? 110 : 130,
 			x: -80,
 			y: globals.isMobile ? -90 : -110
 		},
@@ -168,15 +168,15 @@ class MercatorMap {
 			label: 'Birmingham',
 			color: '#039DF5',
 			textColor: '#000',
-			width: 130,
-			x: -180,
+			width: globals.isMobile ? 110 : 130,
+			x: globals.isMobile ? -160 : -180,
 			y: -40
 		},
 		{
 			label: 'London',
 			color: '#2C15A4',
 			textColor: '#fff',
-			width: 120,
+			width: 100,
 			x: globals.isMobile ? 30 : 50,
 			y: -40
 		},
@@ -192,7 +192,7 @@ class MercatorMap {
 			label: 'Sheffield',
 			color: '#F51D72',
 			textColor: '#fff',
-			width: 120,
+			width: 100,
 			x: 50,
 			y: -40
 		},
@@ -200,7 +200,7 @@ class MercatorMap {
 			label: 'Leeds',
 			color: '#FB7F4C',
 			textColor: '#000',
-			width: 120,
+			width: 100,
 			x: 50,
 			y: -45
 		}
