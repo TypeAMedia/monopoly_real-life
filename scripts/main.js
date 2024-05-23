@@ -152,15 +152,20 @@ class App {
 	}
 
 	showCard(streets) {
-		d3.select('.streets-wrap').style('display', 'block')
 		d3.select('#map').style('display', 'none')
 		d3.select('.btn-zooms').style('display', 'none')
 		d3.select('#streetsWrap').html('');
 		d3.select('.heading-box-mobile').style('display', 'none')
-		d3.select('.streets-wrap').style('height', '100vh')
 		if (globals.isMobile) {
 			d3.select('.sidebar').style('position', 'absolute').style('left', 0).style('top', 0).style('z-index', 1000)
 		}
+
+		d3.select('.streets-wrap')
+			.style('display', 'block')
+			.style('height', '100vh').on('click', function () {
+				console.log('tst')
+			})
+
 		d3.select('#streetsWrap')
 			.append('div')
 			.attr('class', 'streets-main-box')

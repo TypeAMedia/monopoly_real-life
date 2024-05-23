@@ -370,8 +370,7 @@ class MercatorMap {
 		if (containerRect.width > 0) {
 			this.attrs.width = containerRect.width
 		}
-
-		this.attrs.height = this.attrs.width < 576 ? window.innerHeight - 50 : 745
+		this.attrs.height = this.attrs.width < 576 ? window.innerHeight - 50 : window.innerWidth > 1576 ? 900 : 700
 
 		this.chartWidth =
 			this.attrs.width - this.attrs.margin.right - this.attrs.margin.left
