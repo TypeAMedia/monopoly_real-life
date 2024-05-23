@@ -27,17 +27,17 @@ body {
 
 @font-face {
   font-family: 'Soleil-regular';
-  src: url(/webFonts/soleil-cufonfonts\ 2/Soleil-regular.otf);
+  src: url(/webFonts/soleil/SoleilRegular.otf);
 }
 
 @font-face {
   font-family: 'Soleil-bold';
-  src: url(/webFonts/soleil-cufonfonts\ 2/Soleil-bold.otf);
+  src: url(/webFonts/soleil/SoleilBold.otf);
 }
 
 @font-face {
   font-family: 'Soleil-light';
-  src: url(/webFonts/soleil-cufonfonts\ 2/Soleil-light.otf);
+  src: url(/webFonts/soleil/SoleilLight.otf);
 }
 
 *:focus,
@@ -103,6 +103,7 @@ body {
   padding: 0 20%;
   margin-top: 0px;
   margin-bottom: 24px;
+  font-family: 'Soleil-regular'
 }
 
 .main-title {
@@ -222,14 +223,14 @@ body {
   line-height: normal;
   text-transform: uppercase;
   margin-top: 10px;
+  font-family: 'Soleil-regular'
 }
 
 .street {
   text-transform: uppercase;
   margin-top: 20px;
-  /* color: #FFF; */
   text-align: center;
-  font-family: 'Mont-regular';
+  font-family: 'Soleil-bold';
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -288,12 +289,14 @@ body {
 .info-street {
   margin-top: 10px;
   font-size: 20px;
+  font-family: 'Soleil-bold';
   text-transform: uppercase;
   border-bottom: none !important
 }
 
 .rank-data {
   margin: 20px 0px 10px 0px;
+  font-family: 'Soleil-regular'
 }
 
 .each-rank {

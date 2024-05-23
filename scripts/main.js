@@ -18,18 +18,16 @@ class App {
 
 	async loadDataAndInit() {
 		try {
-			const [mapjson, data, datum] = await Promise.all([
+			const [mapjson, data] = await Promise.all([
 				d3.json('./data/uk-outline-topo.json'),
-				d3.csv('./data/football-data.csv', d3.autoType),
 				d3.csv('./data/Monopoly-data.csv', d3.autoType)
 			])
 
-			this.data = data
 
 
-			const uniqueData = Array.from(new Set(datum.map((d) => d.City)))
+			const uniqueData = Array.from(new Set(data.map((d) => d.City)))
 				.map(city => {
-					return datum.find(obj => obj.City === city);
+					return data.find(obj => obj.City === city);
 				})
 
 			const uniqueCities = uniqueData.map((d) => {
@@ -46,7 +44,7 @@ class App {
 				list: uniqueCities,
 				id: '#city_select',
 				cb: (city) => {
-					const streets = datum.filter((d) => d.City === city).map((d, i) => {
+					const streets = data.filter((d) => d.City === city).map((d, i) => {
 						return {
 							...d,
 							index: i
@@ -75,7 +73,7 @@ class App {
 
 				onPinClick: d => {
 					console.log(d)
-					const streets = datum.filter((x) => x.City === d.label).map((a, i) => {
+					const streets = data.filter((x) => x.City === d.label).map((a, i) => {
 						return {
 							...a,
 							index: i
@@ -130,50 +128,6 @@ class App {
 		})
 	}
 
-	fillModal() {
-		const table = d3.select('#table')
-		const fill = conf => {
-			table.html(`
-				<thead>
-					<tr>
-						<th>Rank</th>
-						<th>Club</th>
-						${conf.fieldTeam ? `<th>${conf.label}</th>` : ''}
-					</tr>
-				</thead>
-				<tbody>
-					${this.data
-					.slice()
-					.filter(d => !isNaN(d[conf.rankField]))
-					.sort((a, b) => {
-						return a[conf.rankField] - b[conf.rankField]
-					})
-					.map(d => {
-						return `
-									<tr>
-										<td>${ordinal_suffix_of(d[conf.rankField])}</td>
-										<td>${d.Team}</td>
-										${conf.fieldTeam ? `<td>${d[conf.fieldTeam]}</td>` : ''} 
-									</tr>
-								`
-					})
-					.join('')
-				}
-				</tbody>
-			`)
-		}
-
-		fill(config.miles)
-
-		d3.selectAll('.rank-btn').on('click', (e, d) => {
-			const target = e.target.getAttribute('data-target')
-			d3.selectAll('.rank-btn').classed('btn-active', false)
-			d3.select('.table-desc-heading').text(config[target].tableText)
-			d3.select('.table-desc-text').text(config[target].tableDesc)
-			d3.select(e.target).classed('btn-active', true)
-			fill(config[target])
-		})
-	}
 
 	cardColor = ['#7C212A', '#039DF5', '#F51D72', '#FB7F4C', '#FC4243', '#FC4243', '#01AD5B', '#2C15A4']
 
@@ -263,7 +217,7 @@ class App {
 							</div>
 							<div class="each-rank">
 								<div class="daily-parking" id="dailyParking">Avg. Daily Parking Price</div>
-								<div>${street['Avg. Price of Property']}</div>
+								<div>${street['Average Price of Parking (DAILY)']}</div>
 							</div>
 							<div class="each-rank">
 								<div class="school-rting" id="schoolRating">Avg. School Rating</div>
