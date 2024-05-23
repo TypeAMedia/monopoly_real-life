@@ -186,7 +186,7 @@ class MercatorMap {
 			textColor: '#000',
 			width: 130,
 			x: 50,
-			y: -35
+			y: globals.isMobile ? -30 : -35
 		},
 		{
 			label: 'Sheffield',

@@ -83,8 +83,6 @@ class App {
 					this.showCard(streets)
 				},
 			})
-
-			this.fillModal()
 			this.initZoomBtns()
 		} catch (e) {
 			console.error(e)
@@ -162,10 +160,13 @@ class App {
 		d3.select('.streets-wrap').style('height', '100vh')
 
 		d3.select('#streetsWrap')
-			.selectAll('streets-box')
+			.append('div')
+			.attr('class', 'streets-main-box')
+			.selectAll('.streets-box')
 			.data(streets)
 			.enter()
 			.append('div')
+			.attr('class', 'streets-box')
 			.html((street, index) => `<div class="each-street">
 			<div class="title-deed" style='background-color: ${this.generateCardColor(index)}; color: ${this.generateCardColor(index) === '#FBF22D' ? 'black' : 'white'}'>
 			<div class="title"> TITLE DEED</div>
@@ -219,22 +220,22 @@ class App {
 							</div>
 							<div class="each-rank">
 								<div class="school-rting" id="schoolRating">Avg. School Rating</div>
-								<div>Good</div>
-							</div>
+								<div>${street['SCHOOL QUALITY RANK']}</div >
+							</div >
 							<div class="each-rank">
 								<div class="doctors-practices" id="doctorsPractices">Doctors Practices</div>
-								<div>6</div>
+								<div>${street['GPs (in 2 mile radius)']}</div>
 							</div>
 
 							<div class='info-border'> </div>
 
 							<div class="each-rank">
 								<div class="houses-cost" id="housesCost">Houses cost</div>
-								<div>${street['Avg. Price of Property']}</div>
+								<div>${formatThousand(street['Avg. Price of Property'])}</div>
 							</div>
-						</div>
-					</div>
-				</div>`)
+						</div >
+					</div >
+				</div > `)
 			})
 	}
 
