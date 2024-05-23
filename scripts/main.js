@@ -23,8 +23,6 @@ class App {
 				d3.csv('./data/Monopoly-data.csv', d3.autoType)
 			])
 
-
-
 			const uniqueData = Array.from(new Set(data.map((d) => d.City)))
 				.map(city => {
 					return data.find(obj => obj.City === city);
