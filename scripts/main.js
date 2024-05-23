@@ -40,17 +40,19 @@ class App {
 				}
 			})
 
-
-			console.log(uniqueCities)
 			this.choice = initDropdown({
 				// searchPlaceholderValue: 'Search',
 				placeholder: 'FIND YOUR CITY',
 				list: uniqueCities,
 				id: '#city_select',
 				cb: (city) => {
-					const streets = datum.filter((d) => d.City === city)
+					const streets = datum.filter((d) => d.City === city).map((d, i) => {
+						return {
+							...d,
+							index: i
+						}
+					})
 					this.showCard(streets)
-					this.map.highlightPin(x => x.City === city)
 				},
 				searchEnabled: false,
 			})
@@ -70,82 +72,19 @@ class App {
 					}
 				}),
 
-				// getTooltipHtml: d => {
-				// 	return `
-				// 	<div class="tooltip-div">
-				// 		<h3 class="tooltip-title">${d.Team}</h3>
-				// 		<div>
-
-				// 		<div class='FC-rank'> <span class='FC-rank'> Rank </span>  <span class='overall-ranking'>${ordinal_suffix_of(d.Rank)} </span> </div>
-
-				// 			<table class="table table-sm">
-				// 				<thead>
-				// 					<tr>
-				// 						<th>Away Game</th>
-				// 						<th class="font-normal text-grey">Total</th>
-				// 						<th class="font-normal text-grey">Rank</th>
-				// 					</tr>
-				// 				</thead>
-				// 				<tbody>
-				// 					${Object.values(config)
-				// 			.sort((a, b) => a.order - b.order)
-				// 			.filter(d => d.tableText !== 'OVERALL').filter(d => d.fieldTeam === 'Travel distance' || d.fieldTeam === 'Fuel cost')
-				// 			.map(conf => {
-				// 				return `
-				// 								<tr>
-				// 									<td>
-				// 										<div class="d-flex align-items-center">
-				// 											<div class="icon">${conf.icon}</div>
-				// 											<div class="field-Team">${conf.fieldTeam}</div>
-				// 										</div>
-				// 									</td>
-				// 									<td class="col-2">
-				// 										${conf.format ? conf.format(d[conf.fieldTeam] || '') : d[conf.fieldTeam] || ''}
-				// 									</td>
-				// 									<td class="col-3">
-				// 										${ordinal_suffix_of(d[conf.rankField])}
-				// 									</td>
-				// 								</tr>
-				// 							`
-				// 			}).join('')}
-
-				// 			<tr>
-				// 				<td colSpan="3">
-				//            Home Game
-				// 				</td>
-				// 			</tr>
-
-				// 			${Object.values(config)
-				// 			.sort((a, b) => a.order - b.order)
-				// 			.filter(d => d.tableText !== 'OVERALL').filter(d => d.fieldTeam === 'Parking costs' || d.fieldTeam === 'Parking spaces')
-				// 			.map(conf => {
-				// 				return `
-				// 									<tr>
-				// 										<td>
-				// 											<div class="d-flex align-items-center">
-				// 												<div class="icon">${conf.icon}</div>
-				// 												<div class="field-Team">${conf.fieldTeam}</div>
-				// 											</div>
-				// 										</td>
-				// 										<td class="col-2">
-				// 											${conf.format ? conf.format(d[conf.fieldTeam] || '') : d[conf.fieldTeam] || ''}
-				// 										</td>
-				// 										<td class="col-3">
-				// 											${ordinal_suffix_of(d[conf.rankField])}
-				// 										</td>
-				// 									</tr>
-
-				// 								`
-				// 			}).join('')}
-				// 				</tbody>
-				// 		</table>
-				// 		</div>
-				// 	</div>`
-				// },
 
 				onPinClick: d => {
-					this.choice.setChoiceByValue(d.City)
-					this.map.highlightPin(x => x.City === d.City)
+					console.log(d)
+					const streets = datum.filter((x) => x.City === d.label).map((a, i) => {
+						return {
+							...a,
+							index: i
+						}
+
+					})
+					this.choice.setChoiceByValue(d.label);
+
+					this.showCard(streets)
 				},
 			})
 
@@ -254,9 +193,28 @@ class App {
 
 	cardColor = ['#7C212A', '#039DF5', '#F51D72', '#FB7F4C', '#FC4243', '#FC4243', '#01AD5B', '#2C15A4']
 
-	generateCardColor(color, index,) {
-
-
+	generateCardColor(index) {
+		if (index <= 1) {
+			return '#7C212A'
+		} else if (index > 1 && index <= 3) {
+			return '#039DF5'
+		} else if (index > 3 && index <= 5) {
+			return '#F51D72'
+		} else if (index > 5 && index <= 7) {
+			return '#FB7F4C'
+		} else if (index > 7 && index <= 9) {
+			return '#FC4243'
+		} else if (index > 9 && index <= 11) {
+			return '#FBF22D'
+		} else if (index > 11 && index <= 13) {
+			return '#01AD5B'
+		} else if (index > 13 && index <= 15) {
+			return '#2C15A4'
+		} else if (index > 15 && index <= 17) {
+			return '#7C212A'
+		} else if (index > 17 && index <= 19) {
+			return '#039DF5'
+		} else { return '#7C212A' }
 	}
 
 	showCard(streets) {
@@ -264,6 +222,8 @@ class App {
 		d3.select('#map').style('display', 'none')
 		d3.select('.btn-zooms').style('display', 'none')
 		d3.select('#streetsWrap').html('');
+		d3.select('.heading-box-mobile').style('display', 'none')
+		d3.select('.streets-wrap').style('height', '100vh')
 
 		d3.select('#streetsWrap')
 			.selectAll('streets-box')
@@ -271,17 +231,23 @@ class App {
 			.enter()
 			.append('div')
 			.html((street, index) => `<div class="each-street">
-					<div class='title-deed' style='backgroundColor:'>
-						<div class="title"> TITLE DEED</div>
+			<div class="title-deed" style='background-color: ${this.generateCardColor(index)}; color: ${this.generateCardColor(index) === '#FBF22D' ? 'black' : 'white'}'>
+			<div class="title"> TITLE DEED</div>
 						<div class="street">${street.Location}</div>
 					</div>
 				</div>`)
-			.on('click', function (e, street) {
+			.on('click', (e, street) => {
 				d3.select('#infoCard').html('')
+
+
 				const infoCard = d3.select('#infoCard')
 					.style('display', 'block')
 
-				d3.select('.info-card-background').style('display', 'block')
+				d3.select('.info-card-background').style('display', 'block').on('click', function () {
+					infoCard.style('display', 'none')
+					d3.select(this).style('display', 'none')
+				})
+
 
 				infoCard.append('div')
 					.attr('class', 'close-button')
@@ -291,17 +257,18 @@ class App {
 					<path
 						d="M28.0451 13.0851L26.9151 11.9551L20.0002 18.87L13.0854 11.9551L11.9554 13.0851L18.8703 19.9999L11.9554 26.9148L13.0854 28.0448L20.0002 21.1299L26.9151 28.0448L28.0451 26.9148L21.1302 19.9999L28.0451 13.0851Z"
 						fill="#101921" />
-				</svg>`).on('click', function () {
+				</svg>`).on('click', () => {
 						infoCard.style('display', 'none')
 						d3.select('.info-card-background').style('display', 'none')
 					})
+
 
 				infoCard
 					.append('div')
 					.attr('class', 'info-box')
 					.html(`<div class="info-box-street">
 					<div class="info-each-street">
-						<div class='info-title-deed'>
+						<div class='info-title-deed' style='background-color: ${this.generateCardColor(street.index)}; color: ${this.generateCardColor(street.index) === '#FBF22D' ? 'black' : 'white'}'>
 							<div class="title-text-info"> TITLE DEED</div>
 							<div class="info-street">${street.Location}</div>
 						</div>

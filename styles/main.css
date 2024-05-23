@@ -55,7 +55,9 @@ body {
 
 .content {
   display: flex;
-  height: 100%
+  flex-direction: column;
+  height: 100%;
+  background-image: url(/images/bg-pattern-mobile.png);
 }
 
 .btn-close {
@@ -83,7 +85,7 @@ body {
   padding: 0px;
   max-width: 918px;
   margin: 0 auto;
-  height: 100vh
+  height: 100vh;
 }
 
 .hero-image {
@@ -136,8 +138,7 @@ body {
 
 .map-wrap {
   position: relative;
-  width: 65%;
-  background-image: url('/images/BG pattern.png');
+  width: 100%;
 }
 
 .streets-wrap {
@@ -146,9 +147,9 @@ body {
   top: 0px;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 50vh;
   overflow-y: auto;
-  padding: 20px 120px 20px 120px;
+  padding: 20px;
   display: none;
 }
 
@@ -175,15 +176,44 @@ body {
 .title-deed {
   border: 2px solid #101921;
   border-bottom: none !important;
-  background-color: #7C212A;
   color: white;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   cursor: pointer;
 }
 
+.red {
+  background-color: #7C212A;
+}
+
+.blue {
+  background-color: #039DF5
+}
+
+.pink {
+  background-color: #F51D72;
+}
+
+.light-orange {
+  background-color: #FB7F4C;
+}
+
+.light-red {
+  background-color: #FC4243;
+}
+
+.yellow {
+  background-color: #FC4243;
+}
+
+.green {
+  background-color: #01AD5B;
+}
+
+.dark-blue {
+  background-color: #2C15A4;
+}
 
 .title-text-info {
-  color: #FFF;
   text-align: center;
   font-family: 'Mont-regular';
   font-size: 12px;
@@ -197,7 +227,7 @@ body {
 .street {
   text-transform: uppercase;
   margin-top: 20px;
-  color: #FFF;
+  /* color: #FFF; */
   text-align: center;
   font-family: 'Mont-regular';
   font-size: 20px;
@@ -209,7 +239,8 @@ body {
 .info-card {
   position: fixed;
   top: 25%;
-  left: 50%;
+  /* left: 50%; */
+  left: 5%;
   text-align: center;
   display: none;
 }
@@ -246,7 +277,7 @@ body {
   border-bottom: none !important;
   background-color: #7C212A;
   color: white;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
 }
 
 .info-each-street {
@@ -256,6 +287,7 @@ body {
 }
 
 .info-street {
+  margin-top: 10px;
   font-size: 20px;
   text-transform: uppercase;
   border-bottom: none !important
@@ -287,15 +319,22 @@ body {
   cursor: pointer;
 }
 
-
 .sidebar {
-  width: 35%;
-  background-color: #E5FFEC;
-  padding: 25px
+  display: 'block';
+  width: 100%;
+  background-color: transparent;
+  padding: 20px;
 }
 
+
 .heading-box {
+  display: none;
+
+}
+
+.heading-box-mobile {
   border: 4px solid #101921;
+
 }
 
 .title-box {
@@ -327,8 +366,7 @@ body {
 
 .desc-box {
   background-color: #FFF;
-  padding: 10px 20px 5px 20px;
-
+  padding: 10px 10px 5px 10px;
 }
 
 .desc-text {
@@ -662,8 +700,47 @@ body {
     display: none;
   }
 
+  .content {
+    flex-direction: row;
+    background: none;
+    height: 100%;
+  }
+
+  .sidebar {
+    display: 'block';
+    width: 35%;
+    background-color: #E5FFEC;
+    padding: 20px;
+  }
+
+  .map-wrap {
+    width: 65%;
+    background-image: url('/images/BG pattern.png');
+  }
+
+  .streets-wrap {
+    padding: 50px 120px 50px 120px;
+    height: 100%
+  }
+
+  .heading-box {
+    display: block;
+    border: 4px solid #101921;
+  }
+
+  .heading-box-mobile {
+    display: none;
+  }
+
+  .info-card {
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    text-align: center;
+    display: none;
+  }
+
   .modal-content {
-    /* padding: 16px; */
     width: 80%
   }
 
