@@ -27,17 +27,17 @@ body {
 
 @font-face {
   font-family: 'Soleil-regular';
-  src: url(/webFonts/soleil-cufonfonts\ 2/Soleil-regular);
+  src: url(/webFonts/soleil-cufonfonts\ 2/Soleil-regular.otf);
 }
 
 @font-face {
   font-family: 'Soleil-bold';
-  src: url(/webFonts/soleil-cufonfonts\ 2/Soleil-bold);
+  src: url(/webFonts/soleil-cufonfonts\ 2/Soleil-bold.otf);
 }
 
 @font-face {
   font-family: 'Soleil-light';
-  src: url(/webFonts/soleil-cufonfonts\ 2/Soleil-light);
+  src: url(/webFonts/soleil-cufonfonts\ 2/Soleil-light.otf);
 }
 
 *:focus,
@@ -239,7 +239,6 @@ body {
 .info-card {
   position: fixed;
   top: 25%;
-  /* left: 50%; */
   left: 5%;
   text-align: center;
   display: none;
@@ -317,6 +316,20 @@ body {
   display: flex;
   justify-content: end;
   cursor: pointer;
+}
+
+.foreign-div {
+  border: 3px solid #101921;
+  padding: 5px 10px;
+  text-align: center;
+}
+
+.foreign-text {
+  font-family: 'Mont-bold';
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
 .sidebar {
@@ -750,6 +763,14 @@ body {
 
   .dropdown {
     margin-top: 20px
+  }
+
+  .foreign-div {
+    padding: 5px 15px;
+  }
+
+  .foreign-text {
+    font-size: 16px;
   }
 
   .logo {

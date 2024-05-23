@@ -128,22 +128,6 @@ class App {
 			this.map && this.map.scale(this.currentScale)
 			this.updateZoomBtns()
 		})
-
-		d3.selectAll('.money-toggle').on('click', e => {
-			const target = e.target.getAttribute('data-target')
-			const field =
-				target === 'with_money' ? 'RANK WITH BUDGET' : 'RANK NO BUDGET'
-
-			this.rankField = field
-			this.map && this.map.setColorBy(this.rankField)
-
-			d3.selectAll('.money-toggle').classed('btn-active', false)
-			d3.select(e.target).classed('btn-active', true)
-
-			if (this.currentCountry) {
-				this.selectCountry(this.currentCountry)
-			}
-		})
 	}
 
 	fillModal() {
