@@ -12,32 +12,33 @@ body {
 
 @font-face {
   font-family: 'Mont-regular';
-  src: url(/webFonts/Mont-Regular/font.woff);
+  src: url(../webFonts/Mont-Regular/font.woff);
 }
 
 @font-face {
   font-family: 'Mont-bold';
-  src: url(/webFonts/Mont-Bold/font.woff);
+  src: url(../webFonts/Mont-Bold/font.woff);
 }
+
 
 @font-face {
   font-family: 'Mont-semibold';
-  src: url(/webFonts/Mont-Regular/font.woff)
+  src: url(../webFonts/Mont-Regular/font.woff)
 }
 
 @font-face {
   font-family: 'Soleil-regular';
-  src: url(/webFonts/soleil/SoleilRegular.otf);
+  src: url(../webFonts/soleil/SoleilRegular.otf);
 }
 
 @font-face {
   font-family: 'Soleil-bold';
-  src: url(/webFonts/soleil/SoleilBold.otf);
+  src: url(../webFonts/soleil/SoleilBold.otf);
 }
 
 @font-face {
   font-family: 'Soleil-light';
-  src: url(/webFonts/soleil/SoleilLight.otf);
+  src: url(../webFonts/soleil/SoleilLight.otf);
 }
 
 *:focus,
@@ -57,7 +58,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-image: url(/images/bg-pattern-mobile.png);
+  background-image: url('../images/bg-pattern-mobile.png');
 }
 
 .btn-close {
@@ -143,7 +144,7 @@ body {
 }
 
 .streets-wrap {
-  background-image: url('/images/BG pattern.png');
+  background-image: url('../images/BG pattern.png');
   position: absolute;
   top: 0px;
   left: 0;
@@ -363,7 +364,7 @@ body {
   color: #FFF;
   text-align: center;
   font-family: 'Mont-bold';
-  font-size: 40px;
+  font-size: 38px;
   font-style: normal;
   font-weight: 800;
   line-height: 36px;
@@ -731,7 +732,7 @@ body {
 
   .map-wrap {
     width: 65%;
-    background-image: url('/images/BG pattern.png');
+    background-image: url('../images/BG pattern.png');
   }
 
   .streets-wrap {
