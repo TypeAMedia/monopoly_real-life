@@ -280,19 +280,6 @@ class MercatorMap {
 				}, 300)
 
 			})
-
-		// if (!resize) {
-		// 	this.pinsDom
-		// 		.transition()
-		// 		.delay((d, i) => {
-		// 			return i * 50 * Math.random()
-		// 		})
-		// 		.duration(350)
-		// 		.attr('transform', d => {
-		// 			return `translate(${d.x},${d.y})`
-		// 		})
-		// }
-
 		this.pinsDom.each(function (d) {
 			initTooltip(this, getTooltipHtml(d))
 		})
@@ -382,6 +369,5 @@ class MercatorMap {
 		this.main(true)
 		this.resetZoom()
 	}
-
 
 }

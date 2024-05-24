@@ -151,7 +151,14 @@ class App {
 			return '#7C212A'
 		} else if (index > 17 && index <= 19) {
 			return '#039DF5'
-		} else { return '#7C212A' }
+		} else if (index > 19 && index <= 21) {
+			return '#F51D72'
+		} else if (index > 21 && index <= 23) {
+			return '#FB7F4C'
+		} else if (index > 23 && index <= 25) {
+			return '#FC4243'
+		}
+		else { return '#7C212A' }
 	}
 
 	showCard(streets) {
@@ -182,7 +189,6 @@ class App {
 					d3.select('.sidebar').style('position', 'relative')
 				}
 			})
-
 
 		d3.select('#streetsWrap')
 			.append('div')
