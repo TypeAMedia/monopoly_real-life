@@ -79,7 +79,6 @@ class App {
 
 					})
 					this.choice.setChoiceByValue(d.label);
-
 					this.showCard(streets)
 				},
 			})
@@ -106,11 +105,7 @@ class App {
 		this.updateZoomBtns()
 
 		d3.select('#zoom_in').on('click', () => {
-			// d3.selectAll('.pin').each(function () {
-			// 	const currentTransform = d3.select(this).attr('transform');
-			// 	const newTransform = `${currentTransform} scale(0.5)`;
-			// 	d3.select(this).attr('transform', newTransform);
-			// });
+
 
 			this.currentScale = Math.min(
 				this.zoomExtent[1],
@@ -121,11 +116,7 @@ class App {
 		})
 
 		d3.select('#zoom_out').on('click', () => {
-			// d3.selectAll('.pin').each(function () {
-			// 	const currentTransform = d3.select(this).attr('transform');
-			// 	const newTransform = `${currentTransform} scale(1.5)`;
-			// 	d3.select(this).attr('transform', newTransform);
-			// });
+
 
 			this.currentScale = Math.max(
 				this.zoomExtent[0],
@@ -178,7 +169,9 @@ class App {
 		streetWrap
 			.append('div')
 			.attr('class', 'overlay')
-			.on('click', function () {
+			.on('click', (d) => {
+				console.log(d)
+				this.choice.setValue(['FIND YOUR CITY'])
 				streetWrap.style('display', 'none')
 				d3.select('#map').style('display', 'block')
 				d3.select('.btn-zooms').style('display', 'block')
@@ -189,27 +182,6 @@ class App {
 					d3.select('.sidebar').style('position', 'relative')
 				}
 			})
-
-
-		// 		streetWrap.append('svg')
-		// 			.attr('width', '40px')
-		// 			.attr('height', '40px')
-		// 			.attr('viewBox', '0 0 40 40')
-		// 			.attr('fill', 'none')
-		// 			.attr('xmlns', 'http://www.w3.org/2000/svg')
-		// 			.html(`
-		// 			<rect x="1" y="1" width="38" height="38" rx="3" fill="white" stroke="#101921" stroke-width="2"
-		// 				stroke-dasharray="3 3"></rect>
-		// 			<path
-		// 				d="M28.0451 13.0851L26.9151 11.9551L20.0002 18.87L13.0854 11.9551L11.9554 13.0851L18.8703 19.9999L11.9554 26.9148L13.0854 28.0448L20.0002 21.1299L26.9151 28.0448L28.0451 26.9148L21.1302 19.9999L28.0451 13.0851Z"
-		// 				fill="#101921"></path>
-		// `).on('click', function () {
-		// 				streetWrap.style('display', 'none')
-		// 				d3.select('#map').style('display', 'block')
-		// 				d3.select('.btn-zooms').style('display', 'block')
-		// 			})
-
-
 
 
 		d3.select('#streetsWrap')
