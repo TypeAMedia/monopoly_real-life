@@ -103,7 +103,6 @@ class MercatorMap {
 					.attr('transform', `scale(${1 / scale})`)
 				this.currentTransform = e.transform
 
-				tippy.hideAll()
 
 				attrs.onZoom(e.transform)
 			})
@@ -384,16 +383,16 @@ class MercatorMap {
 		this.resetZoom()
 	}
 
-	highlightPin(highlight) {
-		this.pinsDom.classed('highlighted', d => {
-			return d.highlighted = highlight(d)
-		}).each(function (d) {
-			if (d.highlighted) {
-				if (this._tippy) {
-					this._tippy.show()
-				}
-				d3.select(this).raise()
-			}
-		})
-	}
+	// highlightPin(highlight) {
+	// 	this.pinsDom.classed('highlighted', d => {
+	// 		return d.highlighted = highlight(d)
+	// 	}).each(function (d) {
+	// 		if (d.highlighted) {
+	// 			if (this._tippy) {
+	// 				this._tippy.show()
+	// 			}
+	// 			d3.select(this).raise()
+	// 		}
+	// 	})
+	// }
 }
