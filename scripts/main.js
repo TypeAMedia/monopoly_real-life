@@ -176,6 +176,20 @@ class App {
 		streetWrap
 			.append('div')
 			.attr('class', 'overlay')
+			.append('svg')
+			.attr('xmlns', 'http://www.w3.org/2000/svg')
+			.attr('width', 40)
+			.attr('height', 40)
+			.attr('viewBox', "0 0 40 40")
+			.attr('fill', 'none')
+			.html(`
+			<rect x="1" y="1" width="38" height="38" rx="3" fill="white" stroke="#101921" stroke-width="2" stroke-dasharray="3 3"/>
+			<path d="M28.0451 13.0851L26.9151 11.9551L20.0002 18.87L13.0854 11.9551L11.9554 13.0851L18.8703 19.9999L11.9554 26.9148L13.0854 28.0448L20.0002 21.1299L26.9151 28.0448L28.0451 26.9148L21.1302 19.9999L28.0451 13.0851Z" fill="#101921"/>
+			`)
+			.style('position', 'absolute')
+			.style('right', globals.isMobile ? 30 : 120)
+			.style('top', globals.isMobile ? 90 : 20)
+			.style('cursor', 'pointer')
 			.on('click', (d) => {
 				console.log(d)
 				this.choice.setValue(['FIND YOUR CITY'])

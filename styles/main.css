@@ -162,7 +162,7 @@ body {
   box-shadow: 0px 4px 20px 0px #0000001A;
   cursor: pointer;
   margin-top: 20px;
-  margin-top: 80px;
+  margin-top: 120px;
 }
 
 .each-street {
@@ -410,6 +410,10 @@ body {
   position: absolute;
   right: 16px;
   bottom: 16px;
+}
+
+.btn:focus {
+  outline: none !important
 }
 
 .btn-rect {
