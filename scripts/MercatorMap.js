@@ -91,6 +91,7 @@ class MercatorMap {
 		const zoom = d3
 			.zoom()
 			.scaleExtent(attrs.zoomExtent)
+			.translateExtent([[-50, -50], [this.chartWidth + 50, this.chartHeight + 50]])
 			.on('zoom', e => {
 				this.chartInner.attr('transform', e.transform)
 
@@ -114,6 +115,7 @@ class MercatorMap {
 			this.svg.call(zoom).on('dblclick.zoom', null)
 		} else {
 			this.svg.call(zoom).on('dblclick.zoom', null).on('wheel.zoom', null)
+
 		}
 	}
 

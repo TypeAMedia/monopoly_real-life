@@ -724,7 +724,7 @@ body {
 }
 
 
-@media (min-width: 576px) {
+@media (min-width: 776px) {
   .d-mobile {
     display: none;
   }
