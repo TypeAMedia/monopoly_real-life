@@ -130,36 +130,7 @@ class App {
 
 	cardColor = ['#7C212A', '#039DF5', '#F51D72', '#FB7F4C', '#FC4243', '#FC4243', '#01AD5B', '#2C15A4']
 
-	generateCardColor(index) {
-		if (index <= 1) {
-			return '#7C212A'
-		} else if (index > 1 && index <= 3) {
-			return '#039DF5'
-		} else if (index > 3 && index <= 5) {
-			return '#F51D72'
-		} else if (index > 5 && index <= 7) {
-			return '#FB7F4C'
-		} else if (index > 7 && index <= 9) {
-			return '#FC4243'
-		} else if (index > 9 && index <= 11) {
-			return '#FBF22D'
-		} else if (index > 11 && index <= 13) {
-			return '#01AD5B'
-		} else if (index > 13 && index <= 15) {
-			return '#2C15A4'
-		} else if (index > 15 && index <= 17) {
-			return '#7C212A'
-		} else if (index > 17 && index <= 19) {
-			return '#039DF5'
-		} else if (index > 19 && index <= 21) {
-			return '#F51D72'
-		} else if (index > 21 && index <= 23) {
-			return '#FB7F4C'
-		} else if (index > 23 && index <= 25) {
-			return '#FC4243'
-		}
-		else { return '#7C212A' }
-	}
+
 
 	showCard(streets) {
 		d3.select('#streetsWrap').html('');
@@ -213,7 +184,7 @@ class App {
 			.append('div')
 			.attr('class', 'streets-box')
 			.html((street, index) => `<div class="each-street">
-			<div class="title-deed" style='background-color: ${this.generateCardColor(index)}; color: ${this.generateCardColor(index) === '#FBF22D' ? 'black' : 'white'}'>
+			<div class="title-deed" style='background-color: ${street.Color}; color: ${street.Color === "#ffed00" || street.Color === '#bde5fd' ? 'black' : 'white'}'>
 			<div class="title"> TITLE DEED</div>
 						<div class="street">${street.Location}</div>
 					</div>
@@ -250,7 +221,7 @@ class App {
 					.attr('class', 'info-box')
 					.html(`<div class="info-box-street">
 					<div class="info-each-street">
-						<div class='info-title-deed' style='background-color: ${this.generateCardColor(street.index)}; color: ${this.generateCardColor(street.index) === '#FBF22D' ? 'black' : 'white'}'>
+						<div class='info-title-deed' style='background-color: ${street.Color}; color: ${street.Color === "#ffed00" || street.Color === '#bde5fd' ? 'black' : 'white'}'>
 							<div class="title-text-info"> TITLE DEED</div>
 							<div class="info-street">${street.Location}</div>
 						</div>
