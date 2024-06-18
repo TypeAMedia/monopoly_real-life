@@ -236,7 +236,7 @@ class App {
 							</div>
 							<div class="each-rank">
 								<div class="school-rting" id="schoolRating">Avg. School Rating</div>
-								<div>${street['SCHOOL QUALITY RANK']}</div >
+								<div>${street['School District Quality (1 being the worst and 4 being the best)']}</div >
 							</div >
 							<div class="each-rank">
 								<div class="doctors-practices" id="doctorsPractices">Doctors Practices</div>
