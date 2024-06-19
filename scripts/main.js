@@ -1,8 +1,8 @@
 class App {
 	constructor() {
-		this.zoomExtent = [0.9, 8]
+		this.zoomExtent = [0.9, 2]
 		this.currentScale = 1
-		this.zoomStep = 0.5
+		this.zoomStep = 0.07
 
 		this.loadDataAndInit()
 
